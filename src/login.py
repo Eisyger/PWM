@@ -10,6 +10,11 @@ class Login(PWInput):
         self.cypher = cypher        
 
     def run(self):
-        super().run("LOGIN")        
-        # implementiere hier den vergleich der eingabe und dem in der datai gespeicherten hash
-
+        super().run("LOGIN")
+        data = [self.username, self.password]
+        hashed_data = self.cypher.encrypt(data)
+        hashed_pw = Load.load_file(path)
+        if Cryptography.check_hash(hashed_data, hashed_pw):
+            return True
+        else:
+            return False       

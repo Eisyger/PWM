@@ -24,8 +24,7 @@ class Register(PWInput):
                     else:
                         print("Fehler! Die Passwörter stimmen nicht überein.")
                         print("Erneute Eingabe erfoderlich.")
-                        self.run()
-                        
+                        self.run()                        
         except Exception as e:
             print(e)
             raise SystemExit("Programm wird beendet.")
