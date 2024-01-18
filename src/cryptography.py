@@ -7,7 +7,7 @@ class Cryptography:
         self.salt = salt
         self.pepper = pepper
 
-    def encrypt(self, data: list, seperator=" ") -> str:
+    def encrypt_and_hash(self, data: list, seperator=" ") -> str:
         """TODO hier muss noch getrennt werden zwischen password_encrypt und enrypt allgemein. 
         Denn es wird ein salt hinzugefügt, was eigentlich nur bei einem passwort sinn macht"""
         if not data:

@@ -12,15 +12,17 @@ class Main:
         self.cypher = Cryptography(self.salt, self.pepper)
 
     def run(self):
-        if os.path.exists(self.path):
-            login = Login(self.path, self.cypher)
-            if login.run():
-                print("juhu login erfolgreich!")
-            else:
-                print("Sorry Dude...")
-        else:
+        # when no password file exists, start register
+        while not os.path.exists(self.path):
             register = Register(self.path, self.cypher)
             register.run()
+
+        # when password file exits, start login
+        login = Login(self.path, self.cypher)
+        if login.run():
+            print("juhu login erfolgreich!")
+        else:
+            print("Sorry Dude...")
 
 
 if __name__ == "__main__":

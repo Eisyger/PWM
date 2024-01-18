@@ -5,13 +5,13 @@ import sys
 
 
 class Login(PWInput):
-    def __init__(self, path: str, cypher: Cryptography, max_login_fails=5):
+    def __init__(self, path: str, cypher: Cryptography, max_login_fails: int = 5):
         super().__init__()
         self.path = path
         self.cypher = cypher
         self.max_login_fails = max_login_fails
 
-    def run(self, start_text="") -> bool:
+    def run(self, start_text: str = "") -> bool:
         # count login fails, and exit
         fail_counter = 0
         while fail_counter < self.max_login_fails:
@@ -21,13 +21,13 @@ class Login(PWInput):
 
                 # generate data list and hash it
                 data = [self.username, self.password]
-                encrypted_data = self.cypher.encrypt(data)
+                hashed_data = self.cypher.encrypt_and_hash(data)
 
                 # get hash from file
-                encrypted_pw = Load.load_file(self.path)
+                hashed_pw = Load.load_file(self.path)
 
                 # compare hashes
-                if encrypted_data == encrypted_pw:
+                if hashed_data == hashed_pw:
                     print("Login erfolgreich.")
                     return True
                 else:
