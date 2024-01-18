@@ -5,12 +5,24 @@ class PWInput:
         self.username = ""
         self.password = ""
 
-    def run(self, startText: str):
+    def run(self, startText: str) -> bool:
         print(startText)
-        try:
-            while True:
-                self.username = input("Eingabe Username: ")
-                self.password = getpass.getpass(prompt="Eingabe Passwort: ") 
-        except Exception as e:
-            print(e)
-            raise SystemExit("Programm wird beendet.")
+        if self.user_input():
+                if self.password_input():
+                    return True
+                
+    
+    def user_input(self) -> bool:
+        while True:
+            user = input("Eingabe Username: ")
+            if Restrictions.check_username(user):
+                self.username = user
+                return True            
+
+    def password_input(self) -> bool:
+        while True:
+            pw = getpass.getpass(prompt="Eingabe Passwort: ")
+            if Restrictions.check_password(pw):
+                self.password = pw
+                if self.verify_password():
+                    return True
