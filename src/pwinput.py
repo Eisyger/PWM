@@ -24,5 +24,4 @@ class PWInput:
             pw = getpass.getpass(prompt="Eingabe Passwort: ")
             if Restrictions.check_password(pw):
                 self.password = pw
-                if self.verify_password():
-                    return True
+                return True
