@@ -1,6 +1,7 @@
 from register import Register
 from login import Login
 from cryptography import Cryptography
+from account import Account
 import os
 
 
@@ -20,9 +21,9 @@ class Main:
         # when password file exits, start login
         login = Login(self.path, self.cypher)
         if login.run():
-            print("juhu login erfolgreich!")
-        else:
-            print("Sorry Dude...")
+            print("lol")
+
+
 
 
 if __name__ == "__main__":
