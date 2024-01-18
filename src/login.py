@@ -1,25 +1,15 @@
 from cryptography import Cryptography
 from load import Load
+from pwinput import PWInput
 import getpass
 
-class Login:
+class Login(PWInput):
     def __init__(self, path: str, cypher: Cryptography):
+        super().__init__()
         self.path = path
-        self.cypher = cypher
-        self.username = ""
-        self.password = ""
+        self.cypher = cypher        
 
     def run(self):
-        print("LOGIN")
-        try:
-            while True:
-                user = input("Eingabe Username: ")
-                pw = getpass.getpass(prompt="Eingabe Passwort: ")
-                data = Load.load_and_decrypt_file(self.path, self.cypher)
-                """TODO extra Methode für die cypher instanz zum verifizieren der daten"""
-                print(data)
-
-        except Exception as e:
-            print(e)
-            raise SystemExit("Programm wird beendet.")
+        super().run("LOGIN")        
+        # implementiere hier den vergleich der eingabe und dem in der datai gespeicherten hash
 

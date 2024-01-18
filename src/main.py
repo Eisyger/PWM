@@ -12,7 +12,7 @@ class Main:
 
     def run(self):
         if os.path.exists(self.path):
-            pass  # Implement Login
+            pass  # Implement Login, wenn Login.run -> True, weiter im programmfluss.
         else:
             register = Register(self.path, self.cypher)
             register.run()
