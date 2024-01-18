@@ -1,5 +1,5 @@
 import json
-
+from save import Save
 
 class Data:
     def __init__(self,
@@ -7,13 +7,13 @@ class Data:
                  login_name: str = "",
                  email: str = "",
                  website: str = "",
-                 passwort: str = ""):
+                 password: str = ""):
         self.data = {
             "ACCOUNT_NAME": name_account,
             "LOGIN_NAME": login_name,
             "EMAIL": email,
             "WEBSITE": website,
-            "PASSWORD": passwort,
+            "PASSWORD": password,
         }
 
     def __str__(self) -> str:
@@ -22,21 +22,9 @@ class Data:
     def get_json(self) -> str:
         return json.dumps(self.data, indent=2)
 
-    @staticmethod
-    def account_from_list(string_list: list) -> list:
-        account_list = []
-        for string_input in string_list:
-            try:
-                json_data = json.loads(string_input)
-                if isinstance(json_data, dict):
-                    acc = Data(
-                        name_account=json_data.get("ACCOUNT_NAME", ""),
-                        login_name=json_data.get("LOGIN_NAME", ""),
-                        email=json_data.get("EMAIL", ""),
-                        website=json_data.get("WEBSITE", ""),
-                        passwort=json_data.get("PASSWORD", "")
-                    )
-                    account_list.append(acc)
-            except json.JSONDecodeError:
-                print(f"Fehler beim Decodieren des JSON-Strings: {string_input}")
-        return account_list
+
+
+#data1 = Data("Facebook", "Marie", "asdf@gmx.de", "facebook.de", "123")
+#data2 = Data("Google", "Marie", "asdf@gmx.de", "google.de", "1234")
+
+#Save.save_json("save_file_data.mpw", [data1.get_json(), data2.get_json()])

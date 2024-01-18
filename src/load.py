@@ -1,10 +1,10 @@
 from cryptography import Cryptography
-import hmac
+
 
 class Load:
     @staticmethod
     def load_and_decrypt_file(path: str, cipher: Cryptography) -> list:
-        hashed_data = load_file(path)
+        hashed_data = Load.load_file(path)
         return cipher.decrypt(hashed_data)
     
     @staticmethod
