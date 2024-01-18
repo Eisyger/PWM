@@ -1,17 +1,24 @@
 class AccountData:
-    def __init__(self):
-        self.nameAccount = ""
-        self.loginName = ""
-        self.LoginEmail = ""
-        self.website = ""
-        self.password = ""
-        self.note = ""
+    def __init__(self, nameAccount, loginName, loginEmail, website, passwort):
+        self.data = {
+            "nameAccount": nameAccount,
+            "loginName": loginName,
+            "loginEmail": loginEmail,
+            "website": website,
+            "passwort": passwort,
+        }
 
     def __str__(self) -> str:
-        return (
-            f"Account Name   : {self.nameAccount}\n"
-            f"Website        : {self.website}\n"
-            f"Login Name     : {self.loginName}\n"
-            f"Login Email    : {self.LoginEmail}\n"            
-            f"Notizen        : {self.note}"
-        )
+        return "".join(f"{key}      :       {value}" for key, value in self.data.items())
+    
+    def _generate_dict(self):
+        return {
+            "nameAccount": self.nameAccount,
+            "loginName": self.loginName,
+            "loginEmail": self.loginEmail,
+            "website": self.website,
+            "passwort": self.passwort,
+        }
+
+    def write_json(self) -> str:
+        return json.dumps(self.daten_dict, indent=2)
