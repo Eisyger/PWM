@@ -1,4 +1,5 @@
 from register import Register
+from login import Login
 from cryptography import Cryptography
 import os
 
@@ -12,7 +13,11 @@ class Main:
 
     def run(self):
         if os.path.exists(self.path):
-            pass  # Implement Login, wenn Login.run -> True, weiter im programmfluss.
+            login = Login(self.path, self.cypher)
+            if login.run():
+                print("juhu login erfolgreich!")
+            else:
+                print("Sorry Dude...")
         else:
             register = Register(self.path, self.cypher)
             register.run()

@@ -7,7 +7,7 @@ class Cryptography:
         self.salt = salt
         self.pepper = pepper
 
-    def encrypt(self, data: list, seperator=" ": str) -> str:
+    def encrypt(self, data: list, seperator=" ") -> str:
         """TODO hier muss noch getrennt werden zwischen password_encrypt und enrypt allgemein. 
         Denn es wird ein salt hinzugefügt, was eigentlich nur bei einem passwort sinn macht"""
         if not data:
@@ -20,14 +20,26 @@ class Cryptography:
             raise SystemExit("Programm wird beendet aufgrund eines Fehlers.")
 
         # Data to Hash
-        hash_data = data.encode('utf-8') + self.salt.encode('utf-8')
+        encoded_data = data.encode('utf-8') + self.salt.encode('utf-8')
 
         # HMAC-Hashing
-        hashed_data = hmac.new(self.pepper.encode('utf-8'), hash_data, hashlib.sha256).hexdigest()
+        hashed_data = hmac.new(self.pepper.encode('utf-8'), encoded_data, hashlib.sha256).hexdigest()
 
         return hashed_data
 
-    @staticmethod
-    def check_hash(hash_1, hash_2):
-        return hash_1 == hash_2
-            
+    def decrypt(self, hashed_data: str) -> list:
+        """TODO decrypt funktioniert noch nicht"""
+        try:
+            # Reverse HMAC-Hashing
+            hash_data = bytes.fromhex(hashed_data)
+            original_data = hmac.new(self.pepper.encode('utf-8'), hash_data[:-len(self.salt.encode('utf-8'))],
+                                     hashlib.sha256).digest()
+            original_data = original_data.decode('utf-8')
+
+            # Split the original data into a list of strings
+            decrypted_data = original_data.split(" ")
+
+            return decrypted_data
+        except Exception as e:
+            print(f"Fehler bei der Entschlüsselung: {str(e)}")
+            raise SystemExit("Programm wird beendet aufgrund eines Fehlers.")
