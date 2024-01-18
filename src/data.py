@@ -1,24 +1,23 @@
+import json
+
+
 class AccountData:
-    def __init__(self, nameAccount, loginName, loginEmail, website, passwort):
+    def __init__(self,
+                 name_account: str = "",
+                 login_name: str = "",
+                 email: str = "",
+                 website: str = "",
+                 passwort: str = ""):
         self.data = {
-            "nameAccount": nameAccount,
-            "loginName": loginName,
-            "loginEmail": loginEmail,
-            "website": website,
-            "passwort": passwort,
+            "ACCOUNT_NAME": name_account,
+            "LOGIN_NAME": login_name,
+            "EMAIL": email,
+            "WEBSITE": website,
+            "PASSWORD": passwort,
         }
 
     def __str__(self) -> str:
-        return "".join(f"{key}      :       {value}" for key, value in self.data.items())
-    
-    def _generate_dict(self):
-        return {
-            "nameAccount": self.nameAccount,
-            "loginName": self.loginName,
-            "loginEmail": self.loginEmail,
-            "website": self.website,
-            "passwort": self.passwort,
-        }
+        return "\n".join(f"{key.ljust(12)}:\t{value}" for key, value in self.data.items() if key != "PASSWORD")
 
-    def write_json(self) -> str:
-        return json.dumps(self.daten_dict, indent=2)
+    def get_json(self) -> str:
+        return json.dumps(self.data, indent=2)
