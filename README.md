@@ -2,54 +2,59 @@
 
 This project is a terminal-based Password Manager with the following structure:
 
+Structure
+----
 Main
-|
-V
+
+↓
+
 Register
-|
-V
+
+↓
+
 Login
-|
-V
+
+↓
+
 AccountManager
 
-csharp
-Copy code
 
-## Register (PWInput):
+Detail
+----
 ```python
-run():
-  # get input from base class 
-  # check for restrictions
-  # hash
-  # save in file
-verify_password()
-Login (PWInput):
-python
+Main()
 
-run():
-  # get input from base class 
-  # check for restrictions
-  # hash input
-  # load hashed password
-  # compare both hashes
-AccountManager:
-python
+  Register (PWInput):
+    run():
+      # get input from base class 
+      # check for restrictions
+      # hash
+      # save in file
+    verify_password()
+      # verify password with a second input
 
-run():
-  # get input
-  # actions based on input
-add()
-delete()
-print_account()
-print_all()
-edit()
-PWInput:
-python
+  Login (PWInput):  
+    run():
+      # get input from base class 
+      # check for restrictions
+      # hash input
+      # load hashed password
+      # compare both hashes
 
-run():
-  # get input for username and password
-  # check input based on restrictions
+  AccountManager:
+    run():
+      # get input
+      # actions based on input
+    add()
+    delete()
+    print_account()
+    print_all()
+    edit()
+   
+  PWInput:
+    run():
+      # get input for username and password
+      # check input based on restrictions
 
 
 
