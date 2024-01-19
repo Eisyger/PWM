@@ -1,6 +1,8 @@
 # Terminal Password Manager
 
-This project is a terminal-based Password Manager with the following structure:
+This project is a terminal-based Password Manager.
+Register an account with username and masterpassword. The password will saved ecrypted and hashed in a file.
+Log in and add accounts or get the password from a choosen account.
 
 Structure
 ----
