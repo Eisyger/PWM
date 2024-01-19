@@ -26,7 +26,7 @@ run():
 verify_password()
 Login (PWInput):
 python
-Copy code
+
 run():
   # get input from base class 
   # check for restrictions
@@ -35,7 +35,7 @@ run():
   # compare both hashes
 AccountManager:
 python
-Copy code
+
 run():
   # get input
   # actions based on input
@@ -46,11 +46,11 @@ print_all()
 edit()
 PWInput:
 python
-Copy code
+
 run():
   # get input for username and password
   # check input based on restrictions
-Feel free to adjust the formatting according to your preferences.
+
 
 
 
