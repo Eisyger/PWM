@@ -1,6 +1,8 @@
-from cryptography import Cryptography
-from load import Load
+from src.crypto import Cryptography
+from src.load import Load
 from pwinput import PWInput
+import hashlib
+import base64
 import sys
 
 
@@ -40,3 +42,9 @@ class Login(PWInput):
             sys.exit(1)
 
         return False
+
+    def get_key(self):
+        seed = self.password + self.username
+        key_bytes = hashlib.sha256(seed.encode('utf-8')).digest()
+        base64_key = base64.urlsafe_b64decode(key_bytes)
+        return base64_key

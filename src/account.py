@@ -1,9 +1,9 @@
-from data import Data
+from accountdata import AccountData
 import json
 
 
-class Account(Data):
-    def __init__(self, data: Data):
+class Account(AccountData):
+    def __init__(self, data: AccountData):
         super().__init__(data.data["ACCOUNT_NAME"], data.data["LOGIN_NAME"], data.data["EMAIL"],
                          data.data["WEBSITE"], data.data["PASSWORD"])
 
@@ -16,8 +16,8 @@ class Account(Data):
             try:
                 json_data = json.loads(string)
                 if isinstance(json_data, dict):
-                    acc = Data(
-                        name_account=json_data.get("ACCOUNT_NAME", ""),
+                    acc = AccountData(
+                        account_name=json_data.get("ACCOUNT_NAME", ""),
                         login_name=json_data.get("LOGIN_NAME", ""),
                         email=json_data.get("EMAIL", ""),
                         website=json_data.get("WEBSITE", ""),

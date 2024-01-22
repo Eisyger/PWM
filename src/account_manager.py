@@ -1,5 +1,5 @@
 from load import Load
-from account import Account
+from src.account import Account
 
 
 class AccountManager:
@@ -16,4 +16,4 @@ class AccountManager:
 
 """TODO json dateien müssen als liste mit eckigen klammern gespeichert werden. 
 sonst können nur einzelne daten gelesen werden."""
-a = AccountManager("save_file_data.mpw")
+a = AccountManager("../src/save_file_data.mpw")

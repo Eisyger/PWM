@@ -1,7 +1,6 @@
 from register import Register
 from login import Login
-from cryptography import Cryptography
-from account import Account
+from src.crypto import Cryptography
 import os
 
 
@@ -21,7 +20,9 @@ class Main:
         # when password file exits, start login
         login = Login(self.path, self.cypher)
         if login.run():
-            print("lol")
+            # get key from login data, to encrypt the save files
+            key = login.get_key()
+
 
 
 
