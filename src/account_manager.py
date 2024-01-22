@@ -1,19 +1,15 @@
+import json
+
 from load import Load
 from src.account import Account
 
 
 class AccountManager:
-    def __init__(self, path: str):
-        self.accounts = []
-        data_from_file: str = Load.load_file(path)
-        data = Account.account_from_string(data_from_file)
+    def __init__(self, path: str, auth_key: bytes):
+        # load data from file and generate list
+        data_from_file = Load.load_file(path, auth_key)
+        self.accounts = json.loads(data_from_file)
 
-        for d in data:
-            self.accounts.append(Account(d))
+        print(self.accounts)
 
-        for acc in self.accounts:
-            print(acc)
 
-"""TODO json dateien müssen als liste mit eckigen klammern gespeichert werden. 
-sonst können nur einzelne daten gelesen werden."""
-a = AccountManager("../src/save_file_data.mpw")

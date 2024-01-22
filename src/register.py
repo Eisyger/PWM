@@ -1,6 +1,6 @@
-from src.crypto import Cryptography
+from crypto import Cryptography
 from pwinput import PWInput
-from src.save import Save
+from save import Save
 import getpass
 
 

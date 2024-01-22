@@ -1,6 +1,7 @@
 from register import Register
 from login import Login
 from src.crypto import Cryptography
+from account_manager import AccountManager
 import os
 
 
@@ -21,7 +22,9 @@ class Main:
         login = Login(self.path, self.cypher)
         if login.run():
             # get key from login data, to encrypt the save files
-            key = login.get_key()
+            auth_key = login.get_key()
+            account_manager = AccountManager(self.path, auth_key)
+
 
 
 

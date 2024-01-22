@@ -12,6 +12,7 @@ class AccountData:
                  email: str = "",
                  website: str = "",
                  password: str = ""):
+
         self.account_name = account_name
         self.login_name = login_name
         self.email = email
@@ -22,10 +23,10 @@ class AccountData:
     def __str__(self) -> str:
         return "\n".join(f""
                          f"{key.ljust(12)}:\t{value}"
-                         for key, value in self.get_dict().items()
+                         for key, value in self._get_dict().items()
                          if key != "PASSWORD") + "\n"
 
-    def get_dict(self) -> dict:
+    def _get_dict(self) -> dict:
         return {
             "ACCOUNT_NAME": self.account_name,
             "LOGIN_NAME": self.login_name,
@@ -33,6 +34,9 @@ class AccountData:
             "WEBSITE": self.website,
             "PASSWORD": self.password,
         }
+
+    def save(self, path: str, auth_key: bytes):
+        Save.save_file(path, [self._get_dict()], auth_key)
 
 
 """
