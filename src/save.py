@@ -14,7 +14,7 @@ class Save:
         return True
 
     @staticmethod
-    def save_json(path: str, json_data: list):
+    def save_file(path: str, json_data: list):
         try:
             with open(path, 'a') as file:
                 for d in json_data:

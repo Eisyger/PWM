@@ -16,7 +16,7 @@ class Register(PWInput):
             if super().run("REGISTER"):
 
                 # enter password a second time
-                if self.verify_password():
+                if self.confirm_password():
 
                     # generate data, encrypt and save
                     data = [self.username, self.password]
@@ -31,7 +31,7 @@ class Register(PWInput):
                     print("Erneute Eingabe erfoderlich.")
                     return False
 
-    def verify_password(self):
+    def confirm_password(self):
         pw = getpass.getpass(prompt="Eingabe Passwort Wiederholung: ")
         if self.password == pw:
             return True
