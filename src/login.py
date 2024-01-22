@@ -1,5 +1,5 @@
-from src.crypto import Cryptography
-from src.load import Load
+from crypto import Cryptography
+from load import Load
 from pwinput import PWInput
 import hashlib
 import base64
@@ -31,10 +31,13 @@ class Login(PWInput):
                 # compare hashes
                 if hashed_data == hashed_pw:
                     print("Login erfolgreich.")
+                    print("----------------------------------------------")
                     return True
                 else:
+                    print("##############################################")
                     print("Falscher Benutzer oder falsches Passwort.")
                     print("Versuche es erneut.")
+                    print("##############################################")
                     fail_counter += 1
 
         # when to many logins faild close
@@ -46,5 +49,5 @@ class Login(PWInput):
     def get_key(self):
         seed = self.password + self.username
         key_bytes = hashlib.sha256(seed.encode('utf-8')).digest()
-        base64_key = base64.urlsafe_b64decode(key_bytes)
+        base64_key = base64.urlsafe_b64encode(key_bytes)
         return base64_key

@@ -18,7 +18,6 @@ class AccountData:
         self.email = email
         self.website = website
         self.password = password
-        self.auth_key = ""
 
     def __str__(self) -> str:
         return "\n".join(f""
@@ -34,6 +33,14 @@ class AccountData:
             "WEBSITE": self.website,
             "PASSWORD": self.password,
         }
+
+    @staticmethod
+    def creat_acc_from_dict(data: dict):
+        return AccountData(data["ACCOUNT_NAME"],
+                           data["LOGIN_NAME"],
+                           data["EMAIL"],
+                           data["WEBSITE"],
+                           data["PASSWORD"])
 
     def save(self, path: str, auth_key: bytes):
         Save.save_file(path, [self._get_dict()], auth_key)
@@ -52,6 +59,6 @@ key_bytes = hashlib.sha256(seed.encode('utf-8')).digest()
 # Konvertiere den Schlüssel in base64
 base64_key = base64.urlsafe_b64encode(key_bytes)
 
-Save.save_file("save_file_data.mpw", [d1.get_dict(), d2.get_dict()], base64_key)
-print(type(json.loads(Load.load_file("save_file_data.mpw", base64_key))))
-"""
+d1.save("save_file_data.mpw", base64_key)
+print(json.loads(Load.load_file("save_file_data.mpw", base64_key)))"""
+
