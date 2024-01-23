@@ -1,13 +1,11 @@
-from crypto import Cryptography
+from crypto import Crypto
 from load import Load
 from pwinput import PWInput
-import hashlib
-import base64
 import sys
 
 
 class Login(PWInput):
-    def __init__(self, path: str, cypher: Cryptography, max_login_fails: int = 5):
+    def __init__(self, path: str, cypher: Crypto, max_login_fails: int = 5):
         super().__init__()
         self.path = path
         self.cypher = cypher
@@ -23,7 +21,7 @@ class Login(PWInput):
 
                 # generate data list and hash it
                 data = [self.username, self.password]
-                hashed_data = self.cypher.encrypt_and_hash_password(data)
+                hashed_data = self.cypher.encrypt_password(data)
 
                 # get hash from file
                 hashed_pw = Load.load_file(self.path)
@@ -49,6 +47,6 @@ class Login(PWInput):
 
     def get_key(self):
         seed = self.password + self.username
-        key_bytes = hashlib.sha256(seed.encode('utf-8')).digest()
-        base64_key = base64.urlsafe_b64encode(key_bytes)
-        return base64_key
+        return Crypto.generate_fenet_key(seed)
+
+

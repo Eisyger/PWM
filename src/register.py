@@ -1,11 +1,11 @@
-from crypto import Cryptography
+from crypto import Crypto
 from pwinput import PWInput
 from save import Save
 import getpass
 
 
 class Register(PWInput):
-    def __init__(self, path: str, cypher: Cryptography):
+    def __init__(self, path: str, cypher: Crypto):
         super().__init__()
         self.path = path
         self.cypher = cypher

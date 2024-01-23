@@ -1,6 +1,6 @@
 from register import Register
 from login import Login
-from crypto import Cryptography
+from crypto import Crypto
 from account_manager import AccountManager
 import os
 
@@ -11,7 +11,7 @@ class Main:
         self.path_data = "save_file_data.mpw"
         self.salt = "1|<y18#+-.fvtvk.49610/*"
         self.pepper = "anti_rainbow"
-        self.cypher = Cryptography(self.salt, self.pepper)
+        self.cypher = Crypto(self.salt, self.pepper)
 
     def run(self):
         # when no master password file exists, start register and generate one

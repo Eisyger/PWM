@@ -1,19 +1,19 @@
 import json
 from cryptography.fernet import Fernet
 from load import Load
-from crypto import Cryptography
+from crypto import Crypto
 
 
 class Save:
 
     @staticmethod
-    def save_password(path: str, cipher: Cryptography, data: list) -> bool:
+    def save_password(path: str, cipher: Crypto, data: list) -> bool:
         try:
             # open file, if the file does not exist it gets created
             with open(path, 'w') as file:
 
                 # use cypher to encrypt the passwort and write it to file
-                file.write(cipher.encrypt_and_hash_password(data))
+                file.write(cipher.encrypt_password(data))
 
         except Exception as e:
             print("Fehler beim Schreiben der Datei:", path)

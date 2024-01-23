@@ -1,14 +1,14 @@
-from crypto import Cryptography
+from crypto import Crypto
 from cryptography.fernet import Fernet
 import os
 
 
 class Load:
     @staticmethod
-    def load_password(path: str, cipher: Cryptography) -> list:
+    def load_password(path: str, cipher: Crypto) -> list:
         hashed_data = Load.load_file(path)
         if hashed_data:
-            return cipher.decrypt(hashed_data)
+            return cipher.decrypt_password(hashed_data)
 
     @staticmethod
     def load_file(path: str, auth: bytes = b"") -> str:
