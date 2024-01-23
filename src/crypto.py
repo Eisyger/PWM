@@ -7,19 +7,18 @@ class Cryptography:
         self.salt = salt
         self.pepper = pepper
 
-    def encrypt_and_hash(self, data: list, seperator=" ") -> str:
-        """TODO hier muss noch getrennt werden zwischen password_encrypt und enrypt allgemein. 
-        Denn es wird ein salt hinzugefügt, was eigentlich nur bei einem passwort sinn macht"""
+    def encrypt_and_hash_password(self, data: list, seperator=" ") -> str:
         if not data:
             raise SystemExit("Programm wird beendet aufgrund eines Fehlers.")
 
         try:
+            # concat data
             data = seperator.join(data)
         except TypeError:
-            print("Der Parameter data der Methode enrcypt muss eine Liste aus strings sein.")
+            print("Der Parameter data der Methode encrypt_and_hash_password muss eine Liste aus strings sein.")
             raise SystemExit("Programm wird beendet aufgrund eines Fehlers.")
 
-        # Data to Hash
+        # add salt to data
         encoded_data = data.encode('utf-8') + self.salt.encode('utf-8')
 
         # HMAC-Hashing

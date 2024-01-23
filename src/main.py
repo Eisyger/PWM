@@ -14,7 +14,7 @@ class Main:
         self.cypher = Cryptography(self.salt, self.pepper)
 
     def run(self):
-        # when no password file exists, start register
+        # when no master password file exists, start register and generate one
         while not os.path.exists(self.path_mpw):
             # start Register
             register = Register(self.path_mpw, self.cypher)

@@ -23,13 +23,14 @@ class Login(PWInput):
 
                 # generate data list and hash it
                 data = [self.username, self.password]
-                hashed_data = self.cypher.encrypt_and_hash(data)
+                hashed_data = self.cypher.encrypt_and_hash_password(data)
 
                 # get hash from file
                 hashed_pw = Load.load_file(self.path)
 
                 # compare hashes
                 if hashed_data == hashed_pw:
+                    print("----------------------------------------------")
                     print("Login erfolgreich.")
                     print("----------------------------------------------")
                     return True
