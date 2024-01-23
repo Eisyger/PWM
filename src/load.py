@@ -24,6 +24,7 @@ class Load:
             if data_from_file:
                 if auth:
                     return Load._decrypt_data(data_from_file, auth)
+                return data_from_file
             else:
                 return ""
 

@@ -9,9 +9,11 @@ class Restrictions:
         if 3 < len(username) < 16 and username.isalnum():
             return True
         else:
+            print("##############################################")
             print("Fehler:")
             print("Der Username muss länger als 3 Zeichen sein.")
             print("Nur Zahlen und Buchstaben werden akzeptiert.")
+            print("##############################################")
 
             return False
 
@@ -25,8 +27,10 @@ class Restrictions:
                 and any(c in string.punctuation for c in password)):
             return True
         else:
+            print("##############################################")
             print("Fehler", "Das Passwort muss mindestens 12 Zeichen lang sein.")
             print("Es muss mindestens einen Großbuchstaben, einen Kleinbuchstaben,")
             print("eine Zahl und ein Sonderzeichen enthalten.")
+            print("##############################################")
 
             return False

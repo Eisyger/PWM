@@ -27,8 +27,9 @@ class Main:
             auth_key = login.get_key()
 
             # start the AccountManager
-            account_manager = AccountManager(self.path_data, auth_key)
-            account_manager.run()
+            """TODO implement data management, decrypt data from file fails."""
+            # account_manager = AccountManager(self.path_data, auth_key)
+            # account_manager.run()
 
 
 if __name__ == "__main__":
