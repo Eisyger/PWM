@@ -21,7 +21,7 @@ class Save:
         return True
 
     @staticmethod
-    def save_file(path: str, account_data: list, auth: bytes):
+    def save_file(path: str, account_data: list, auth: bytes = b""):
         # update existing data from file - add new data if possible
         # update parameter account_data as reference
         Save._update_data(path, account_data, auth)
@@ -29,16 +29,22 @@ class Save:
         # creat a json from the data
         json_data = json.dumps(account_data, indent=4).encode('utf-8')
 
-        # encrypt data
-        cipher = Fernet(auth)
-        encrypted_data = cipher.encrypt(json_data)
+        if auth:
+            # encrypt parameter json_data as reference
+            Save._encrypt_data(json_data, auth)
 
         try:
             with open(path, 'wb') as file:
-                file.write(encrypted_data)
+                file.write(json_data)
         except Exception as e:
             print("Fehler beim Schreiben der Datei!", path)
             raise SystemExit("Programm wird beendet aufgrund eines Fehlers.",  str(e))
+
+    @staticmethod
+    def _encrypt_data(data: bytes, auth: bytes):
+        # encrypt data
+        cipher = Fernet(auth)
+        data = cipher.encrypt(data)
 
     @staticmethod
     def _update_data(path: str, account_data: list, auth: bytes):
@@ -47,6 +53,7 @@ class Save:
         if loaded_data:
             current_data = json.loads(loaded_data)
 
+            # check if data is the same, save possible changes is reference parameter account_data
             for data in account_data:
                 if data not in current_data:
                     current_data.append(data)
