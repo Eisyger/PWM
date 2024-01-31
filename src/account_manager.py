@@ -20,22 +20,18 @@ class AccountManager:
             json_from_file = json.loads(data_from_file)
             return [AccountData.creat_acc_from_dict(account) for account in json_from_file]
         
-    def __print_all():
+    def __print_all(short = True):
+        index = 1
         print("Auflistung aller Accounts:")
         for acc in self.accounts:
             print("-" * 50)
-            print(acc)
+            if short:
+                print(acc.account_name)
+            else:
+                print(acc)
+            index += 1
         print("-" * 50)    
-        print(f"Es wurden die Daten von {len(self.accounts)} Accounts ausgegeben.")
-    
-    def _print_short():
-        print("Auflistung aller Accounts:")
-        for acc in self.accounts:
-            print("-" * 50)
-            print(acc.account_name)
-        print("-" * 50)
-        print(f"Es wurden die Daten von {len(self.accounts)} Accounts ausgegeben.")
-            
+        print(f"Es wurden die Daten von {index} Accounts ausgegeben.")  
 
     def run(self):
         print("Nock keine Accounts vorhanden. Willst du einen neuen Account anlegen?")
