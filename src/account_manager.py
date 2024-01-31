@@ -9,14 +9,16 @@ class AccountManager:
 
     def __load_data(self, path):        
         data = Account.account_from_string(Load.load_file(path))
+        print(f"{len(data)} Accounts loaded.")
         if data:
             return [Account(d) for d in data]
         
     def print_all():
         for acc in self.accounts:
+            print("-----------------------------------------")
             print(acc)
+            print("-----------------------------------------")
 
+    def run():
+        pass
 
-"""TODO json dateien müssen als liste mit eckigen klammern gespeichert werden. 
-sonst können nur einzelne daten gelesen werden."""
-a = AccountManager("save_file_data.mpw")
