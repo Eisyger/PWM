@@ -21,18 +21,18 @@ class Register(PWInput):
                     # generate data, encrypt and save
                     data = [self.username, self.password]
                     if Save.save_password(self.path, self.cypher, data):
-                        print("----------------------------------------------")
+                        print("-" * 50)
                         print("Masterpasswort erfolgreich gespeichert.")
                         print("Merke dir das Passwort oder bewahre es sicher auf.")
                         print("NICHT DIGITAL!")
-                        print("----------------------------------------------")
+                        print("-" * 50)
                         return True
 
                 else:
-                    print("##############################################")
+                    print("#" * 50)
                     print("Fehler! Die Passwörter stimmen nicht überein.")
                     print("Erneute Eingabe erfoderlich.")
-                    print("##############################################")
+                    print("#" * 50)
 
     def confirm_password(self):
         pw = getpass.getpass(prompt="Eingabe Passwort Wiederholung: ")

@@ -19,6 +19,22 @@ class AccountManager:
         if data_from_file:
             json_from_file = json.loads(data_from_file)
             return [AccountData.creat_acc_from_dict(account) for account in json_from_file]
+        
+    def __print_all():
+        print("Auflistung aller Accounts:")
+        for acc in self.accounts:
+            print("-" * 50)
+            print(acc)
+        print("-" * 50)    
+        print(f"Es wurden die Daten von {len(self.accounts)} Accounts ausgegeben.")
+    
+    def _print_short():
+        print("Auflistung aller Accounts:")
+        for acc in self.accounts:
+            print("-" * 50)
+            print(acc.account_name)
+        print("-" * 50)
+        print(f"Es wurden die Daten von {len(self.accounts)} Accounts ausgegeben.")
             
 
     def run(self):
@@ -36,3 +52,4 @@ class AccountManager:
             print(str(acc))
 
         """TODO encryption mit parameter schalten, um speicherinhalt zu prüfen."""
+    def menu() -> str:

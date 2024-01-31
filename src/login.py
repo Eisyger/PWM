@@ -28,15 +28,15 @@ class Login(PWInput):
 
                 # compare hashes
                 if hashed_data == hashed_pw:
-                    print("----------------------------------------------")
+                    print("-" * 50)
                     print("Login erfolgreich.")
-                    print("----------------------------------------------")
+                    print("-" * 50)
                     return True
                 else:
-                    print("##############################################")
+                    print("#" * 50)
                     print("Falscher Benutzer oder falsches Passwort.")
                     print("Versuche es erneut.")
-                    print("##############################################")
+                    print("#" * 50)
                     fail_counter += 1
 
         # when to many logins faild close
