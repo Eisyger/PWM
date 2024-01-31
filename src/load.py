@@ -31,5 +31,8 @@ class Load:
     @staticmethod
     def _decrypt_data(data: str, auth: bytes):
         # decrypt data
-        cipher = Fernet(auth)
-        return cipher.decrypt(data).decode()
+        try:
+            cipher = Fernet(auth)
+            return cipher.decrypt(data).decode()
+        except Exception as e:
+            print("Die Daten konnten nicht entschlüsselt werden, die Datenbank ist defekt.", e)

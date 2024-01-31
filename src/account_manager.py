@@ -56,8 +56,6 @@ class AccountManager:
         for acc in self.accounts:
             print(str(acc))
 
-        """TODO encryption mit parameter schalten, um speicherinhalt zu prüfen."""
-
     def menu(self) -> str:
         pass
 

@@ -12,6 +12,4 @@ auth_key = get_key()
 
 manager = AccountManager(path_data, auth_key)
 manager.create_test_data()
-for acc in manager.accounts:
-    print(acc)
 
