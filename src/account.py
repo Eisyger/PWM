@@ -26,4 +26,5 @@ class Account(Data):
                     account_list.append(acc)
             except json.JSONDecodeError:
                 print(f"Fehler beim Decodieren des JSON-Strings: {string}")
+                account_list = []
         return account_list
