@@ -12,14 +12,14 @@ class AccountManager:
 
         # load data from file and generate list
         if os.path.exists(path_data):
-            self._load_data_from_file()
+            self.accounts = self.__load_data_from_file()
 
-    def _load_data_from_file(self):
+    def __load_data_from_file(self):
         data_from_file = Load.load_file(self.path_data, self.auth_key)
         if data_from_file:
             json_from_file = json.loads(data_from_file)
-            for account in json_from_file:
-                self.accounts.append(AccountData.creat_acc_from_dict(account))
+            return [AccountData.creat_acc_from_dict(account) for account in json_from_file]
+            
 
     def run(self):
         print("Nock keine Accounts vorhanden. Willst du einen neuen Account anlegen?")
