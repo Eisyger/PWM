@@ -11,5 +11,6 @@ path_data = "save_file_data.mpw"
 auth_key = get_key()
 
 manager = AccountManager(path_data, auth_key)
-manager.create_test_data()
+# TODO Menu class erstellt, aber der gedankengang ist blöd, im acc manager sollen die eingaben geprüft und ausgeführt
+# manager.create_test_data()
 

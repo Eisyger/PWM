@@ -13,9 +13,13 @@ class AccountManager:
         # load data from file and generate list
         if os.path.exists(path_data):
             self.accounts = self.__load_data_from_file()
+            print("-" * 50)
             print("Daten geladen.")
+            print("-" * 50)
         else:
+            print("#" * 50)
             print("Keine Daten gefunden.")
+            print("#" * 50)
 
     def __load_data_from_file(self):
         data_from_file = Load.load_file(self.path_data, self.auth_key)
@@ -36,6 +40,9 @@ class AccountManager:
         print("-" * 50)
         print(f"Es wurden die Daten von {index} Accounts ausgegeben.")
 
+    def run(self):
+        pass
+
     def create_test_data(self):
         print("Nock keine Accounts vorhanden. Willst du einen neuen Account anlegen?")
         print("Anlegen von Accounts.")
@@ -55,7 +62,3 @@ class AccountManager:
 
         for acc in self.accounts:
             print(str(acc))
-
-    def menu(self) -> str:
-        pass
-
