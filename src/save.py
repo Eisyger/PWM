@@ -24,14 +24,14 @@ class Save:
     def save_file(path: str, account_data: list, auth: bytes = b""):
         # update existing data from file - add new data if possible
         # update parameter account_data as reference
-        Save._update_data(path, account_data, auth)
+        account_data = Save._update_data(path, account_data, auth)
 
         # creat a json from the data
         json_data = json.dumps(account_data, indent=4).encode('utf-8')
 
         if auth:
             # encrypt parameter json_data as reference
-            Save._encrypt_data(json_data, auth)
+            json_data = Save._encrypt_data(json_data, auth)
 
         try:
             with open(path, 'wb') as file:
@@ -44,17 +44,21 @@ class Save:
     def _encrypt_data(data: bytes, auth: bytes):
         # encrypt data
         cipher = Fernet(auth)
-        data = cipher.encrypt(data)
+        return cipher.encrypt(data)
 
     @staticmethod
     def _update_data(path: str, account_data: list, auth: bytes):
-        # load the current date from file, and converts it back to a list via json.loads
+        # load the current data from file, and converts it back to a list via json.loads
         loaded_data = Load.load_file(path, auth)
         if loaded_data:
-            current_data = json.loads(loaded_data)
+            loaded_data = json.loads(loaded_data)
+        else:
+            # return the new data, when no data at all is in the file
+            return account_data
 
-            # check if data is the same, save possible changes is reference parameter account_data
-            for data in account_data:
-                if data not in current_data:
-                    current_data.append(data)
-            account_data = current_data
+        # check if data is the same.
+        # if not append the account_data on the loaded data and return the loaded data
+        for data in account_data:
+            if data not in loaded_data:
+                loaded_data.append(data)
+        return loaded_data
