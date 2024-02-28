@@ -61,6 +61,8 @@ class AccountManager:
     def save(self):
         Save.save_file(self._path_data, [acc.get_dict() for acc in self._accounts], self._auth_key)
 
+    # TODO Add und Edit methode hinzufügen
+
     def create_test_data(self):
         """Generiert eine Testdatenbank. Führe dazu test_account_manager.py aus!"""
 
