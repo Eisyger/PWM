@@ -30,7 +30,7 @@ class Main:
             db_manager = AccountManager(self.path_data, auth_key)
             db_manager.print_data(all=True)
             while True:
-                eingabe = input().split(' ')
+                eingabe = input("->").split(' ')
 
                 if eingabe[0] == "exit":
                     print("Beende den Passwort Manager.")
@@ -44,17 +44,21 @@ class Main:
 
                 elif eingabe[0] == "help":
                     if len(eingabe) == 1:
-                        print("exit                 \t Beendet den Passwort Manager.")
-                        print("print                \t Gib alle Accounts in Kurzform aus.")
-                        print("print -l             \t Gib alle Accounts in Langform aus.")
-                        print("print ACCOUNT_NAME   \t Gib die Account Daten aus.")
+                        print("p                    \t Gib alle Accounts in Kurzform aus.")
+                        print("p -l                 \t Gib alle Accounts in Langform aus.")
+                        print("p ACCOUNT_NAME       \t Gib die Account Daten aus.")
                         print("get ACCOUNT_NAME     \t Fügt das Passwort in den Zwischespeicher ein.")
-                        print("remove ACCOUNT_NAME  \t Löscht den Account.")
                         print("add                  \t Erzeuge neuen Account.")
+                        print("edit                 \t Editiere einen Account.")
+                        print("remove ACCOUNT_NAME  \t Löscht den Account.")
                         print("clear                \t Bereinige die Console.")
+                        print("exit                 \t Speichern und Beenden.")
+                        print("Das Passwort wird nicht in lesbarer Form ausgegeben. "
+                              "Verwende den Befehl 'get ACCOUNT_NAME um das Passwort des gesuchten "
+                              "Accounts in die Zwischenablage zu speichern.")
                         continue
 
-                elif eingabe[0] == "print":
+                elif eingabe[0] == "p":
                     if len(eingabe) == 1:
                         db_manager.print_data(all=True, short=True)
                         continue
@@ -95,7 +99,7 @@ class Main:
                 elif eingabe[0] == "clear":
                     if len(eingabe) == 1:
                         os.system('cls' if os.name == 'nt' else 'clear')
-
+# TODO der Manager ist soweit fertig. Es wäre noch eine Passwort ändern Möglichkeit gut.
                 print("Eingabe ungültig, schreibe 'help' für Hilfe.")
         else:
             print("Falsches Passwort. Beende Passwort Manager.")
