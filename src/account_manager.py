@@ -34,7 +34,7 @@ class AccountManager:
 
         for acc in self._accounts:
             i += 1
-
+            acc.update()
             if acc.account_name == name and not all:
                 print(f"{i}:\n{acc}")
 
@@ -46,13 +46,19 @@ class AccountManager:
 
         print("-" * 50)
 
-    def add_account(self):
+    def add(self):
         new_account = AccountData()
         keys = new_account.get_dict().keys()
         print("Lege einen neuen Account an. Gib die Daten ein.")
         for key in keys:
             new_account.data_dict[key] = input(f"{key}: ")
         self._accounts.append(new_account)
+        print("Account hinzugefügt.")
+
+    def edit(self, name, field, changes):
+        for acc in self._accounts:
+            if acc.account_name == name:
+                acc.data_dict[field] = changes
 
     def get_password(self, name):
         for acc in self._accounts:
@@ -68,8 +74,6 @@ class AccountManager:
 
     def save(self):
         Save.save_file(self._path_data, [acc.get_dict() for acc in self._accounts], self._auth_key)
-
-    # TODO Add und Edit methode hinzufügen
 
     def create_test_data(self):
         """Generiert eine Testdatenbank. Führe dazu test_account_manager.py aus!"""

@@ -34,8 +34,8 @@ class Main:
 
                 if eingabe[0] == "exit":
                     print("Beende den Passwort Manager.")
-                    print("Änderungen speichern? Y/N")
-                    if input() == "Y" or "y":
+                    abfrage = input("Änderungen speichern? Y/N: ")
+                    if abfrage.lower() == "y":
                         db_manager.save()
                         print("Änderungen gespeichert.")
                     else:
@@ -77,13 +77,28 @@ class Main:
 
                 elif eingabe[0] == "add":
                     if len(eingabe) == 1:
-                        db_manager.add_account()
+                        db_manager.add()
                         continue
+
+                elif eingabe[0] == "edit":
+                    acc_name = input("Gib den Account Namen ein: ")
+                    db_manager.print_data(acc_name, short=False)
+                    field = input("Gib das Feld ein, z.B. EMAIL: ").lower()
+                    changes = input(f"Neue Eingabe für den Account {acc_name} in {field}: ")
+                    if acc_name and field and changes:
+                        db_manager.edit(acc_name, field, changes)
+                        print("Änderung übernommen.")
+                        continue
+                    else:
+                        print("Ungültige Eingabe.")
 
                 elif eingabe[0] == "clear":
                     if len(eingabe) == 1:
                         os.system('cls' if os.name == 'nt' else 'clear')
+
                 print("Eingabe ungültig, schreibe 'help' für Hilfe.")
+        else:
+            print("Falsches Passwort. Beende Passwort Manager.")
 
 
 if __name__ == "__main__":
