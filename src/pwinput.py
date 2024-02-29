@@ -12,6 +12,10 @@ class PWInput:
         if self._user_input():
             if self._password_input():
                 return True
+            else:
+                return False
+        else:
+            return False
 
     def _user_input(self) -> bool:
         while True:
@@ -19,6 +23,8 @@ class PWInput:
             if Restrictions.check_username(user):
                 self.username = user
                 return True
+            else:
+                return False
 
     def _password_input(self) -> bool:
         while True:
@@ -26,3 +32,5 @@ class PWInput:
             if Restrictions.check_password(pw):
                 self.password = pw
                 return True
+            else:
+                return False
