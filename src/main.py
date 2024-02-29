@@ -27,25 +27,32 @@ class Main:
             auth_key = login.get_key()
 
             # start the DBManager
-            """TODO implement data management, decrypt data from file fails."""
             db_manager = AccountManager(self.path_data, auth_key)
             db_manager.print_data(all=True)
             while True:
                 eingabe = input().split(' ')
+
                 if eingabe[0] == "exit":
                     print("Beende den Passwort Manager.")
                     print("Änderungen speichern? Y/N")
-                    if input() == "Y":
+                    if input() == "Y" or "y":
                         db_manager.save()
+                        print("Änderungen gespeichert.")
+                    else:
+                        print("Änderungen wurden nicht gespeichert.")
                     break
+
                 elif eingabe[0] == "help":
                     if len(eingabe) == 1:
-                        print("exit \t Beendet den Passwort Manager.")
-                        print("print \t Gib alle Accounts in Kurzform aus.")
-                        print("print -l \t Gib alle Accounts in Langform aus.")
-                        print("print ACCOUNT_NAME \t Gib den genannten Account aus.")
-                        print("get ACCOUNT_NAME \t Fügt das Passwort in den Zwischespeicher ein.")
-                        print("remove ACCOUNT_NAME \t Löscht den Account.")
+                        print("exit                 \t Beendet den Passwort Manager.")
+                        print("print                \t Gib alle Accounts in Kurzform aus.")
+                        print("print -l             \t Gib alle Accounts in Langform aus.")
+                        print("print ACCOUNT_NAME   \t Gib die Account Daten aus.")
+                        print("get ACCOUNT_NAME     \t Fügt das Passwort in den Zwischespeicher ein.")
+                        print("remove ACCOUNT_NAME  \t Löscht den Account.")
+                        print("add                  \t Erzeuge neuen Account.")
+                        print("clear                \t Bereinige die Console.")
+                        continue
 
                 elif eingabe[0] == "print":
                     if len(eingabe) == 1:
@@ -67,8 +74,16 @@ class Main:
                     if len(eingabe) == 2:
                         db_manager.remove(eingabe[1])
                         continue
-                print("Eingabe ungültig, schreibe 'help' für Hilfe.")
 
+                elif eingabe[0] == "add":
+                    if len(eingabe) == 1:
+                        db_manager.add_account()
+                        continue
+
+                elif eingabe[0] == "clear":
+                    if len(eingabe) == 1:
+                        os.system('cls' if os.name == 'nt' else 'clear')
+                print("Eingabe ungültig, schreibe 'help' für Hilfe.")
 
 
 if __name__ == "__main__":

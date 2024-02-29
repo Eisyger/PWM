@@ -46,6 +46,14 @@ class AccountManager:
 
         print("-" * 50)
 
+    def add_account(self):
+        new_account = AccountData()
+        keys = new_account.get_dict().keys()
+        print("Lege einen neuen Account an. Gib die Daten ein.")
+        for key in keys:
+            new_account.data_dict[key] = input(f"{key}: ")
+        self._accounts.append(new_account)
+
     def get_password(self, name):
         for acc in self._accounts:
             if acc.account_name == name:
