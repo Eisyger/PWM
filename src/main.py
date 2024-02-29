@@ -83,14 +83,14 @@ class Main:
                 elif eingabe[0] == "edit":
                     acc_name = input("Gib den Account Namen ein: ")
                     db_manager.print_data(acc_name, short=False)
-                    field = input("Gib das Feld ein, z.B. EMAIL: ").lower()
+                    field = input("Feld, z.B. password: ").lower()
                     changes = input(f"Neue Eingabe für den Account {acc_name} in {field}: ")
                     if acc_name and field and changes:
                         db_manager.edit(acc_name, field, changes)
-                        print("Änderung übernommen.")
                         continue
                     else:
                         print("Ungültige Eingabe.")
+                        continue
 
                 elif eingabe[0] == "clear":
                     if len(eingabe) == 1:

@@ -58,7 +58,14 @@ class AccountManager:
     def edit(self, name, field, changes):
         for acc in self._accounts:
             if acc.account_name == name:
-                acc.data_dict[field] = changes
+                if acc.data_dict.get(field):
+                    acc.data_dict[field] = changes
+                    print("Änderungen übernommen.")
+                    return
+                else:
+                    print(f"Das Feld {field} existiert nicht.")
+                    return
+        print(f"Der Account {name} existiert nicht.")
 
     def get_password(self, name):
         for acc in self._accounts:
