@@ -5,7 +5,7 @@ import sys
 
 
 class Login(PWInput):
-    def __init__(self, path: str, cypher: Crypto, max_login_fails: int = 5):
+    def __init__(self, path: str, cypher: Crypto, max_login_fails: int = 3):
         super().__init__()
         self.path = path
         self.cypher = cypher
@@ -38,11 +38,12 @@ class Login(PWInput):
                     print("Versuche es erneut.")
                     print("#" * 50)
                     fail_counter += 1
+            else:
+                fail_counter += 1
 
         # when to many logins faild close
-        if fail_counter == self.max_login_fails:
+        if fail_counter >= self.max_login_fails:
             sys.exit(1)
-
         return False
 
     def get_key(self):
