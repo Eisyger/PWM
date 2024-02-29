@@ -25,7 +25,7 @@ class AccountManager:
         data_from_file = Load.load_file(self._path_data, self._auth_key)
         if data_from_file:
             json_from_file = json.loads(data_from_file)
-            return [AccountData.creat_acc_from_dict(account) for account in json_from_file]
+            return [AccountData.create_acc_from_dict(account) for account in json_from_file]
 
     def print_data(self, name="", all=False, short=True, ):
         i = 0
