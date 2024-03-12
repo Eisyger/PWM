@@ -46,15 +46,15 @@ class Main:
                     if len(eingabe) == 1:
                         print("p                    \t Gib alle Accounts in Kurzform aus.")
                         print("p -l                 \t Gib alle Accounts in Langform aus.")
-                        print("p ACCOUNT_NAME       \t Gib die Account Daten aus.")
-                        print("get ACCOUNT_NAME     \t Fügt das Passwort in den Zwischespeicher ein.")
+                        print("p <ACCOUNT_NAME>     \t Gib die Account Daten aus.")
+                        print("get <ACCOUNT_NAME>   \t Fügt das Passwort in den Zwischespeicher ein.")
                         print("add                  \t Erzeuge neuen Account.")
                         print("edit                 \t Editiere einen Account.")
-                        print("remove ACCOUNT_NAME  \t Löscht den Account.")
+                        print("remove <ACCOUNT_NAME>\t Löscht den Account.")
                         print("clear                \t Bereinige die Console.")
                         print("exit                 \t Speichern und Beenden.")
                         print("Das Passwort wird nicht in lesbarer Form ausgegeben. "
-                              "Verwende den Befehl 'get ACCOUNT_NAME um das Passwort des gesuchten "
+                              "Verwende den Befehl 'get <ACCOUNT_NAME> um das Passwort des gesuchten "
                               "Accounts in die Zwischenablage zu speichern.")
                         continue
 
@@ -99,7 +99,7 @@ class Main:
                 elif eingabe[0] == "clear":
                     if len(eingabe) == 1:
                         os.system('cls' if os.name == 'nt' else 'clear')
-# TODO der Manager ist soweit fertig. Es wäre noch eine Passwort ändern Möglichkeit gut.
+# TODO der Manager ist soweit fertig. Es wäre noch eine Passwort ändern Möglichkeit gut, sowie eine Save
                 print("Eingabe ungültig, schreibe 'help' für Hilfe.")
         else:
             print("Falsches Passwort. Beende Passwort Manager.")
