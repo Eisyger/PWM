@@ -8,6 +8,11 @@ class PWInput:
         self.password = ""
 
     def run(self, start_text="") -> bool:
+
+        """Create a query of the username and password in the console.
+        Specifications regarding the inputs are governed by the restrictions.py.
+        Return True if the input was valid, and False if not."""
+
         print(start_text)
         if self._user_input():
             if self._password_input():
