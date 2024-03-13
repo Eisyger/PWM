@@ -5,21 +5,23 @@ import sys
 
 
 class Login(PWInput):
-    def __init__(self, path: str, cypher: Crypto, max_login_fails: int = 3):
+    def __init__(self, path: str, cypher: Crypto):
         super().__init__()
         self.path = path
         self.cypher = cypher
-        self.max_login_fails = max_login_fails
 
-    def run(self, start_text: str = "LOGIN") -> bool:
+    def run(self, start_text: str = "LOGIN", max_login_fails: int = 3) -> bool:
+
+        """Runs the Login query on Console. When 'max_login_fails' is reached, exit the application."""
+
         # count login fails, and exit
         fail_counter = 0
-        while fail_counter < self.max_login_fails:
+        while fail_counter < max_login_fails:
 
             # get userinput for username and password
             if super().run(start_text):
 
-                # generate data list and hash it
+                # generate data list from userinput and hash it
                 data = [self.username, self.password]
                 hashed_data = self.cypher.encrypt_password(data)
 
@@ -41,12 +43,15 @@ class Login(PWInput):
             else:
                 fail_counter += 1
 
-        # when to many logins faild close
-        if fail_counter >= self.max_login_fails:
+        # when to many login fails, close application
+        if fail_counter >= max_login_fails:
             sys.exit(1)
         return False
 
     def get_key(self) -> bytes:
+
+        """Returns a base64 key for encoding the database."""
+
         seed = self.password + self.username
         return Crypto.generate_fenet_key(seed)
 
