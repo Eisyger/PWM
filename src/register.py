@@ -11,12 +11,15 @@ class Register(PWInput):
         self.cypher = cypher
 
     def run(self, start_text: str = "REGISTER") -> bool:
+
+        """Runs the Register query on Console. Password gets doublechecked"""
+
         while True:
             # get userinput for username and password
             if super().run(start_text):
 
                 # enter password a second time
-                if self.confirm_password():
+                if self._confirm_password():
 
                     # generate data, encrypt and save
                     data = [self.username, self.password]
@@ -34,7 +37,7 @@ class Register(PWInput):
                     print("Erneute Eingabe erfoderlich.")
                     print("#" * 50)
 
-    def confirm_password(self):
+    def _confirm_password(self) -> bool:
         pw = getpass.getpass(prompt="Eingabe Passwort Wiederholung: ")
         if self.password == pw:
             return True
