@@ -2,7 +2,14 @@ import subprocess
 import platform
 
 
-def copy_to_clipboard(text):
+def copy_to_clipboard(text) -> None:
+    """
+    Copy text to the clipboard.
+
+    Args:
+        text (str): The text to be copied.
+    """
+
     system = platform.system()
     if system == 'Linux':
         subprocess.run(['xclip', '-selection', 'clipboard'], input=text.encode('utf-8'), check=True)

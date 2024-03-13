@@ -11,8 +11,17 @@ class Login(PWInput):
         self.cypher = cypher
 
     def run(self, start_text: str = "LOGIN", max_login_fails: int = 3) -> bool:
+        """
+        Runs the Login query on Console. When '`max_login_fails`' is reached, exit the application.
 
-        """Runs the Login query on Console. When 'max_login_fails' is reached, exit the application."""
+        Args:
+            start_text (str, optional): The text to display at the beginning of the login process. Defaults to "LOGIN".
+            max_login_fails (int, optional): The maximum number of login failures allowed before exiting the application.
+            Defaults to 3.
+
+        Returns:
+            bool: True if login is successful, False otherwise.
+        """
 
         # count login fails, and exit
         fail_counter = 0

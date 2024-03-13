@@ -5,6 +5,16 @@ class Restrictions:
 
     @staticmethod
     def check_username(username: str) -> bool:
+        """
+        Check the validity of the username.
+
+        Args:
+            username (str): The username to be checked.
+
+        Returns:
+            bool: True if the username meets the criteria, False otherwise.
+        """
+
         # Check the username
         if 3 < len(username) < 16 and username.isalnum():
             return True

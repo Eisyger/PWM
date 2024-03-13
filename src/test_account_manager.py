@@ -11,5 +11,5 @@ path_data = "save_file_data.mpw"
 auth_key = get_key()
 
 manager = AccountManager(path_data, auth_key)
-# manager.create_test_data()
+manager.create_test_data()
 

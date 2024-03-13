@@ -11,8 +11,15 @@ class Register(PWInput):
         self.cypher = cypher
 
     def run(self, start_text: str = "REGISTER") -> bool:
+        """
+        Runs the Register query on Console. Password gets double-checked.
 
-        """Runs the Register query on Console. Password gets doublechecked"""
+        Args:
+            start_text (str, optional): The text to display at the beginning of the registration process. Defaults to "REGISTER".
+
+        Returns:
+            bool: True if registration is successful, False otherwise.
+        """
 
         while True:
             # get userinput for username and password
