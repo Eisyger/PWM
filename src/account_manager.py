@@ -79,7 +79,12 @@ class AccountManager:
                 self._accounts.pop(i)
                 print(f"Der Account {name} wurde gelöscht.")
 
-    def save(self):
+    def save(self, path=None, auth_key=None):
+        if path:
+            self._path_data = path
+        if auth_key:
+            self._auth_key = auth_key
+
         Save.save_file(self._path_data, [acc.get_dict() for acc in self._accounts], self._auth_key)
 
     def create_test_data(self):

@@ -15,7 +15,7 @@ class Main:
 
     def run(self):
         # when no master password file exists, start register and generate one
-        while not os.path.exists(self.path_mpw):
+        if not os.path.exists(self.path_mpw):
             # start Register
             register = Register(self.path_mpw, self.cypher)
             register.run()
@@ -28,9 +28,8 @@ class Main:
 
             # start the DBManager
             db_manager = AccountManager(self.path_data, auth_key)
-            db_manager.print_data(all=True)
             while True:
-                eingabe = input("->").split(' ')
+                eingabe = input("_> ").split(' ')
 
                 if eingabe[0] == "exit":
                     print("Beende den Passwort Manager.")
@@ -45,15 +44,17 @@ class Main:
                 elif eingabe[0] == "help":
                     if len(eingabe) == 1:
                         print("p                    \t Gib alle Accounts in Kurzform aus.")
-                        print("p -l                 \t Gib alle Accounts in Langform aus.")
+                        print("pl                   \t Gib alle Accounts in Langform aus.")
                         print("p <ACCOUNT_NAME>     \t Gib die Account Daten aus.")
                         print("get <ACCOUNT_NAME>   \t Fügt das Passwort in den Zwischespeicher ein.")
                         print("add                  \t Erzeuge neuen Account.")
                         print("edit                 \t Editiere einen Account.")
                         print("remove <ACCOUNT_NAME>\t Löscht den Account.")
                         print("clear                \t Bereinige die Console.")
+                        print("save                 \t Speichern")
                         print("exit                 \t Speichern und Beenden.")
-                        print("Das Passwort wird nicht in lesbarer Form ausgegeben. "
+                        print("change pwm           \t Ändere deine Logindaten für den PWM.")
+                        print("Das Passwort wird nicht über die Kommandozeile ausgegeben."
                               "Verwende den Befehl 'get <ACCOUNT_NAME> um das Passwort des gesuchten "
                               "Accounts in die Zwischenablage zu speichern.")
                         continue
@@ -62,12 +63,14 @@ class Main:
                     if len(eingabe) == 1:
                         db_manager.print_data(all=True, short=True)
                         continue
-                    if len(eingabe) == 2:
-                        if eingabe[1] == "-l":
-                            db_manager.print_data(all=True, short=False)
-                            continue
-                        elif eingabe[1]:
-                            db_manager.print_data(name=eingabe[1])
+                    elif eingabe[1]:
+                        db_manager.print_data(name=eingabe[1])
+                        continue
+
+                elif eingabe[0] == "pl":
+                    if len(eingabe) == 1:
+                        db_manager.print_data(all=True, short=False)
+                        continue
 
                 elif eingabe[0] == "get":
                     if len(eingabe) == 2:
@@ -84,6 +87,21 @@ class Main:
                         db_manager.add()
                         continue
 
+                elif eingabe[0] == "save":
+                    if len(eingabe) == 1:
+                        db_manager.save()
+                        continue
+
+                elif eingabe[0] == "change":
+                    if len(eingabe) == 2:
+                        if eingabe[1] == "pwm":
+                            new_register = Register(self.path_mpw, self.cypher)
+                            new_register.run("ÄNDERUNG DER LOGINDATEN FÜR DEN PWM")
+                            new_login = Login(self.path_mpw, self.cypher)
+                            new_login.run("Log dich einmal mit deinen neuen Daten ein.")
+                            db_manager.save(path=self.path_data, auth_key=new_login.get_key())
+                            continue
+
                 elif eingabe[0] == "edit":
                     acc_name = input("Gib den Account Namen ein: ")
                     db_manager.print_data(acc_name, short=False)
@@ -99,7 +117,6 @@ class Main:
                 elif eingabe[0] == "clear":
                     if len(eingabe) == 1:
                         os.system('cls' if os.name == 'nt' else 'clear')
-# TODO der Manager ist soweit fertig. Es wäre noch eine Passwort ändern Möglichkeit gut, sowie eine Save
                 print("Eingabe ungültig, schreibe 'help' für Hilfe.")
         else:
             print("Falsches Passwort. Beende Passwort Manager.")
