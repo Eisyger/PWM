@@ -11,13 +11,13 @@ class Login(PWInput):
         self.cypher = cypher
         self.max_login_fails = max_login_fails
 
-    def run(self, start_text: str = "") -> bool:
+    def run(self, start_text: str = "LOGIN") -> bool:
         # count login fails, and exit
         fail_counter = 0
         while fail_counter < self.max_login_fails:
 
             # get userinput for username and password
-            if super().run("LOGIN"):
+            if super().run(start_text):
 
                 # generate data list and hash it
                 data = [self.username, self.password]
@@ -46,7 +46,7 @@ class Login(PWInput):
             sys.exit(1)
         return False
 
-    def get_key(self):
+    def get_key(self) -> bytes:
         seed = self.password + self.username
         return Crypto.generate_fenet_key(seed)
 

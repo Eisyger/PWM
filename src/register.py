@@ -10,10 +10,10 @@ class Register(PWInput):
         self.path = path
         self.cypher = cypher
 
-    def run(self, start_text="") -> bool:
+    def run(self, start_text: str = "REGISTER") -> bool:
         while True:
             # get userinput for username and password
-            if super().run("REGISTER"):
+            if super().run(start_text):
 
                 # enter password a second time
                 if self.confirm_password():
