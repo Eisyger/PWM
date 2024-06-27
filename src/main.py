@@ -2,13 +2,15 @@ from register import Register
 from login import Login
 from crypto import Crypto
 from account_manager import AccountManager
+import argparse
 import os
 
 
 class Main:
-    def __init__(self):
-        self.path_mpw = "save_file.mpw"
-        self.path_data = "save_file_data.mpw"
+    def __init__(self, save_path: str = ""):
+        self.path_mpw = os.path.join(save_path, "save_file.mpw")
+        self.path_data = os.path.join(save_path, "save_file_data.mpw")
+
         self.salt = "1|<y18#+-.fvtvk.49610/*"
         self.pepper = "anti_rainbow"
         self.cypher = Crypto(self.salt, self.pepper)
@@ -124,5 +126,13 @@ class Main:
 
 
 if __name__ == "__main__":
-    main = Main()
+    parser = argparse.ArgumentParser(description="Process some paths.")
+    parser.add_argument('--path', type=str, default="", help="Path to save files")
+    args = parser.parse_args()
+    if os.path.exists(args.path) and os.path.isdir(args.path):
+        save_path = args.path
+    else:
+        save_path = ""
+
+    main = Main(save_path)
     main.run()
