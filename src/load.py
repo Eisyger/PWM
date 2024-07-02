@@ -24,14 +24,14 @@ class Load:
                     hashed_pw_data = file.readline()
                 if hashed_pw_data:
                     return hashed_pw_data
+                else:
+                    raise SystemExit(f"Keine Daten in der Datei: {path}.")
             except Exception as e:
                 print("Fehler!", str(e))
                 raise SystemExit(f"Fehler beim lesen der Datei: {path}.")
         else:
             print("Die Datei existiert nicht: %s", path)
             return ""
-            
-
 
     @staticmethod
     def load_file(path: str, auth: bytes = b"") -> str:

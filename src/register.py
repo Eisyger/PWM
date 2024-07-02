@@ -15,7 +15,8 @@ class Register(PWInput):
         Runs the Register query on Console. Password gets double-checked.
 
         Args:
-            start_text (str, optional): The text to display at the beginning of the registration process. Defaults to "REGISTER".
+            start_text (str, optional): The text to display at the beginning of
+            the registration process. Defaults to "REGISTER".
 
         Returns:
             bool: True if registration is successful, False otherwise.
@@ -41,7 +42,7 @@ class Register(PWInput):
                 else:
                     print("#" * 50)
                     print("Fehler! Die Passwörter stimmen nicht überein.")
-                    print("Erneute Eingabe erfoderlich.")
+                    print("Erneute Eingabe erforderlich.")
                     print("#" * 50)
 
     def _confirm_password(self) -> bool:

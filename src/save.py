@@ -18,7 +18,7 @@ class Save:
             data (list): The list of strings to be encrypted and hashed, e. g. [username, password].
 
         Returns:
-            bool: True if the password is successfully saved, False otherwise.
+            bool: True if the password is successfully saved, raises an Error otherwise.
         """
 
         try:
@@ -30,15 +30,15 @@ class Save:
                 # replace the first line with new password data
                 lines[0] = cipher.encrypt_password(data) + "\n"
 
-                # write lines in file
+                # write lines back in file
                 with open(path, 'w') as new_data:
                     new_data.writelines(lines)
             else:
-                # create file and save data
+                # create new file and save password data
                 with open(path, 'w') as file:
 
                     # use cypher to encrypt the passwort and write it to file
-                    file.write(cipher.encrypt_password(data)) + "\n"
+                    file.write(cipher.encrypt_password(data) + "\n")
 
         except Exception as e:
             print("Fehler beim Schreiben der Datei:", path)

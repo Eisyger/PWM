@@ -32,7 +32,8 @@ class Login(PWInput):
 
                 # generate data list from userinput and hash it
                 data = [self.username, self.password]
-                hashed_data = self.cypher.encrypt_password(data)
+                # have to add the new line, because the password is save so too
+                hashed_data = self.cypher.encrypt_password(data) + "\n"
 
                 # get hash from file
                 hashed_pw = Load.load_password(self.path)
