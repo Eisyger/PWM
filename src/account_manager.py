@@ -21,13 +21,15 @@ class AccountManager:
             print("Keine Daten gefunden.")
             print("#" * 50)
 
-    def __load_data_from_file(self):
+    def __load_data_from_file(self) -> list:
         data_from_file = Load.load_file(self._path_data, self._auth_key)
         if data_from_file:
             json_from_file = json.loads(data_from_file)
             return [AccountData.create_acc_from_dict(account) for account in json_from_file]
+        else:
+            return []
 
-    def print_data(self, name="", all=False, short=True, ):
+    def print_data(self, name="", all=False, short=True):
         i = 0
         print("Auflistung aller Accounts:")
         print("-" * 50)
