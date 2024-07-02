@@ -2,6 +2,7 @@ import json
 from cryptography.fernet import Fernet
 from load import Load
 from crypto import Crypto
+import os
 
 
 class Save:
@@ -14,18 +15,30 @@ class Save:
         Args:
             path (str): The path to the file.
             cipher (Crypto): The encryption object.
-            data (list): The data to be encrypted and saved.
+            data (list): The list of strings to be encrypted and hashed, e. g. [username, password].
 
         Returns:
             bool: True if the password is successfully saved, False otherwise.
         """
 
         try:
-            # open file, if the file does not exist it gets created
-            with open(path, 'w') as file:
+            if os.path.exists(path):
+                # load existing file
+                with open(path, 'r') as old_data:
+                    lines = old_data.readlines()
 
-                # use cypher to encrypt the passwort and write it to file
-                file.write(cipher.encrypt_password(data))
+                # replace the first line with new password data
+                lines[0] = cipher.encrypt_password(data) + "\n"
+
+                # write lines in file
+                with open(path, 'w') as new_data:
+                    new_data.writelines(lines)
+            else:
+                # create file and save data
+                with open(path, 'w') as file:
+
+                    # use cypher to encrypt the passwort and write it to file
+                    file.write(cipher.encrypt_password(data)) + "\n"
 
         except Exception as e:
             print("Fehler beim Schreiben der Datei:", path)
@@ -33,14 +46,14 @@ class Save:
         return True
 
     @staticmethod
-    def save_file(path: str, account_data: list, auth: bytes) -> None:
+    def save_file(path: str, account_data: list, auth: bytes = None) -> None:
         """
         Save account data to a file.
 
         Args:
             path (str): The path to the file.
             account_data (list): The account data to be saved.
-            auth (bytes, optional): Authentication data for encryption. Defaults to bytes.
+            auth (bytes): Authentication data for encryption. Defaults to bytes.
         """
 
         # creat a json from the data
@@ -51,8 +64,19 @@ class Save:
             json_data = Save._encrypt_data(json_data, auth)
 
         try:
-            with open(path, 'wb') as file:
-                file.write(json_data)
+            if os.path.exists(path):
+                # first line with the masterpassword data is untouched
+                with open(path, 'r') as old_file:
+                    pw_data = old_file.readline()
+                
+                with open(path, 'w') as new_file:
+                    new_file.write(pw_data)
+
+                with open(path, 'ab') as file:
+                    file.write(json_data)
+            else:
+                with open(path, 'ab') as file:
+                    file.write(json_data)
         except Exception as e:
             print("Fehler beim Schreiben der Datei!", path)
             raise SystemExit("Programm wird beendet aufgrund eines Fehlers.",  str(e))

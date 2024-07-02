@@ -10,26 +10,27 @@ class Main:
     def __init__(self, save_path: str = ""):
         self.path_mpw = os.path.join(save_path, "save_file.mpw")
         self.path_data = os.path.join(save_path, "save_file_data.mpw")
+        self.path_database = os.path.join(save_path, "database.mpw")
 
         self.salt = "1|<y18#+-.fvtvk.49610/*"
         self.pepper = "anti_rainbow"
         self.cypher = Crypto(self.salt, self.pepper)
 
     def run(self):
-        # when no master password file exists, start register and generate one
-        if not os.path.exists(self.path_mpw):
+        # when no database file exists, start register and generate one
+        if not os.path.exists(self.path_database):
             # start Register
-            register = Register(self.path_mpw, self.cypher)
+            register = Register(self.path_database, self.cypher)
             register.run()
 
-        # when password file exits, start login
-        login = Login(self.path_mpw, self.cypher)
+        # when database file exits, start login
+        login = Login(self.path_database, self.cypher)
         if login.run():
             # get key from login data, to encrypt the save files
             auth_key = login.get_key()
 
             # start the DBManager
-            db_manager = AccountManager(self.path_data, auth_key)
+            db_manager = AccountManager(self.path_database, auth_key)
             while True:
                 eingabe = input("_> ").split(' ')
 
@@ -97,11 +98,11 @@ class Main:
                 elif eingabe[0] == "change":
                     if len(eingabe) == 2:
                         if eingabe[1] == "pwm":
-                            new_register = Register(self.path_mpw, self.cypher)
+                            new_register = Register(self.path_database, self.cypher)
                             new_register.run("ÄNDERUNG DER LOGINDATEN FÜR DEN PWM")
-                            new_login = Login(self.path_mpw, self.cypher)
+                            new_login = Login(self.path_database, self.cypher)
                             new_login.run("Log dich einmal mit deinen neuen Daten ein.")
-                            db_manager.save(path=self.path_data, auth_key=new_login.get_key())
+                            db_manager.save(path=self.path_database, auth_key=new_login.get_key())
                             continue
 
                 elif eingabe[0] == "edit":

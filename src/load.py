@@ -5,21 +5,33 @@ import os
 
 class Load:
     @staticmethod
-    def load_password(path: str, cipher: Crypto) -> list:
+    def load_password(path: str) -> str:
         """
-        Load password from file and decrypt it.
+        Load hashed password from file.
 
         Args:
-            path (str): The path to the file.
-            cipher (Crypto): The encryption object.
+            path (str): The path to the file
+            
 
         Returns:
-            list: The decrypted password.
+            str: The hashed password.
         """
 
-        hashed_data = Load.load_file(path)
-        if hashed_data:
-            return cipher.decrypt_password(hashed_data)
+        if os.path.exists(path):
+            try:
+                # get the first line and return it
+                with open(path, 'r') as file:
+                    hashed_pw_data = file.readline()
+                if hashed_pw_data:
+                    return hashed_pw_data
+            except Exception as e:
+                print("Fehler!", str(e))
+                raise SystemExit(f"Fehler beim lesen der Datei: {path}.")
+        else:
+            print("Die Datei existiert nicht: %s", path)
+            return ""
+            
+
 
     @staticmethod
     def load_file(path: str, auth: bytes = b"") -> str:
@@ -37,6 +49,9 @@ class Load:
         if os.path.exists(path):
             try:
                 with open(path, 'r') as file:
+                    # ignore first line (password data line)
+                    file.readline()
+                    # read data from second line
                     data_from_file = file.read().strip()
 
             except Exception as e:

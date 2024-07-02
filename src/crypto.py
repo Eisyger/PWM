@@ -13,11 +13,11 @@ class Crypto:
         Encrypt and hash the password data.
 
         Args:
-            data (list): The list of strings to be encrypted and hashed.
+            data (list): The list of strings to be encrypted and hashed, e. g. [username, password].
             separator (str, optional): The separator used to join the data strings. Defaults to " ".
 
         Returns:
-            str: The hashed password.
+            str: The hashed data.
         """
 
         if not data:
@@ -27,7 +27,7 @@ class Crypto:
             # concat data
             data = separator.join(data)
         except TypeError:
-            print("Der Parameter data der Methode encrypt_and_hash_password muss eine Liste aus strings sein.")
+            print("Der Parameter 'data' der Methode 'encrypt_and_hash_password' muss eine Liste aus strings sein.")
             raise SystemExit("Programm wird beendet aufgrund eines Fehlers.")
 
         # add salt to data

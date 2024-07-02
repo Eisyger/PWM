@@ -35,7 +35,7 @@ class Login(PWInput):
                 hashed_data = self.cypher.encrypt_password(data)
 
                 # get hash from file
-                hashed_pw = Load.load_file(self.path)
+                hashed_pw = Load.load_password(self.path)
 
                 # compare hashes
                 if hashed_data == hashed_pw:
