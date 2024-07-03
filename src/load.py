@@ -5,7 +5,7 @@ import os
 
 class Load:
     @staticmethod
-    def load_password(path: str) -> str:
+    def load_password(path: str) -> list:
         """
         Load hashed password from file.
 
@@ -14,7 +14,7 @@ class Load:
             
 
         Returns:
-            str: The hashed password.
+            list: [0] => The salt witch was used. [1] => The hashed masterpassword.             
         """
 
         if os.path.exists(path):
@@ -23,7 +23,7 @@ class Load:
                 with open(path, 'r') as file:
                     hashed_pw_data = file.readline()
                 if hashed_pw_data:
-                    return hashed_pw_data
+                    return hashed_pw_data.split(':')                    
                 else:
                     raise SystemExit(f"Keine Daten in der Datei: {path}.")
             except Exception as e:
@@ -31,7 +31,7 @@ class Load:
                 raise SystemExit(f"Fehler beim lesen der Datei: {path}.")
         else:
             print("Die Datei existiert nicht: %s", path)
-            return ""
+            return []
 
     @staticmethod
     def load_file(path: str, auth: bytes = b"") -> str:
