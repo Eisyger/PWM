@@ -29,17 +29,20 @@ class Login(PWInput):
 
             # get userinput for username and password
             if super().run(start_text):
+                
+                # get salt and hashed masterpassword from file
+                hashed_data = Load.load_password(self.path)
+                salt = hashed_data[0]
+                hashed_pw = hashed_data[1]
 
                 # generate data list from userinput and hash it
-                data = [self.username, self.password]
-                # have to add the new line, because the password is save so too
-                hashed_data = self.cypher.encrypt_password(data) + "\n"
-
-                # get hash from file
-                hashed_pw = Load.load_password(self.path)
+                data = [salt, self.username, self.password]
+                # generate hash - have to add the new line, because the masterpassword is save so too
+                new_hashed_data = self.cypher.encrypt_password(data) + "\n"
+                
 
                 # compare hashes
-                if hashed_data == hashed_pw:
+                if new_hashed_data == hashed_data:
                     print("-" * 50)
                     print("Login erfolgreich.")
                     print("-" * 50)
