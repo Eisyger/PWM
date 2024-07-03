@@ -20,15 +20,16 @@ class Save:
         Returns:
             bool: True if the password is successfully saved, raises an Error otherwise.
         """
-
+        salt_raw_text = data[0]
+        pw_data_to_hash = data[1:]
         try:
             if os.path.exists(path):
                 # load existing file
                 with open(path, 'r') as old_data:
                     lines = old_data.readlines()
 
-                # replace the first line with new password data
-                lines[0] = cipher.encrypt_password(data) + "\n"
+                # replace the first line with salt in raw form and new password data
+                lines[0] = salt_raw_text + ":" + cipher.encrypt_password(pw_data_to_hash) + "\n"
 
                 # write lines back in file
                 with open(path, 'w') as new_data:
