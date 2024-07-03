@@ -8,13 +8,10 @@ import os
 
 class Main:
     def __init__(self, save_path: str = ""):
-        self.path_mpw = os.path.join(save_path, "save_file.mpw")
-        self.path_data = os.path.join(save_path, "save_file_data.mpw")
         self.path_database = os.path.join(save_path, "database.mpw")
-
-        self.salt = "1|<y18#+-.fvtvk.49610/*"
+        
         self.pepper = "anti_rainbow"
-        self.cypher = Crypto(self.salt, self.pepper)
+        self.cypher = Crypto(self.pepper)
 
     def run(self):
         # when no database file exists, start register and generate one

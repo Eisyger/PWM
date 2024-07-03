@@ -9,7 +9,7 @@ class Register(PWInput):
         super().__init__()
         self.path = path
         self.cypher = cypher
-
+        
     def run(self, start_text: str = "REGISTER") -> bool:
         """
         Runs the Register query on Console. Password gets double-checked.
@@ -30,7 +30,7 @@ class Register(PWInput):
                 if self._confirm_password():
 
                     # generate password data for saving in first line in the savefile / database
-                    pwd_data = [Crypto.generate_rnd_salt(), self.username, self.password]
+                    pwd_data = [self.username, self.password]
                     # encrypt and save
                     if Save.save_password(self.path, self.cypher, pwd_data):
                         print("-" * 50)

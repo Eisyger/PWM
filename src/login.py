@@ -36,9 +36,9 @@ class Login(PWInput):
                 hashed_pw = hashed_data[1]
 
                 # generate data list from userinput and hash it
-                data = [salt, self.username, self.password]
+                data = [self.username, self.password]
                 # generate hash - have to add the new line, because the masterpassword is save so too
-                new_hashed_data = self.cypher.encrypt_password(data) + "\n"
+                new_hashed_data = self.cypher.encrypt_password(data, new_salt=salt) + "\n"
                 
 
                 # compare hashes

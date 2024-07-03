@@ -4,11 +4,11 @@ import base64
 
 
 class Crypto:
-    def __init__(self, salt: str, pepper: str):
-        self.salt = salt
+    def __init__(self, pepper: str):
+        self.salt = self.__generate_rnd_salt()
         self.pepper = pepper
 
-    def encrypt_password(self, data: list, separator: str = " ") -> str:
+    def encrypt_password(self, data: list, separator: str = " ", new_salt: str  = "") -> str:
         """
         Encrypt and hash the password data.
 
@@ -19,10 +19,13 @@ class Crypto:
         Returns:
             str: The hashed data.
         """
+        if new_salt:
+            current_salt = new_salt
+        else:
+            current_salt = self.salt
 
         if not data:
             raise SystemExit("Programm wird beendet aufgrund eines Fehlers.")
-
         try:
             # concat data
             data = separator.join(data)
@@ -31,7 +34,7 @@ class Crypto:
             raise SystemExit("Programm wird beendet aufgrund eines Fehlers.")
 
         # add salt to data
-        encoded_data = data.encode('utf-8') + self.salt.encode('utf-8')
+        encoded_data = data.encode('utf-8') + current_salt.encode('utf-8')
 
         # HMAC-Hashing
         hashed_data = hmac.new(self.pepper.encode('utf-8'), encoded_data, hashlib.sha256).hexdigest()
@@ -85,6 +88,6 @@ class Crypto:
         return base64_key
 
     @staticmethod
-    def generate_rnd_salt(salt_lenght = 16) -> str:
+    def __generate_rnd_salt(salt_lenght = 16) -> str:
         salt = os.urandom(length)
         return base64.b64encode(salt).decode('utf-8')
