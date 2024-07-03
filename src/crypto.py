@@ -84,3 +84,7 @@ class Crypto:
         base64_key = base64.urlsafe_b64encode(key_bytes)
         return base64_key
 
+    @staticmethod
+    def generate_rnd_salt(salt_lenght = 16) -> str:
+        salt = os.urandom(length)
+        return base64.b64encode(salt).decode('utf-8')
