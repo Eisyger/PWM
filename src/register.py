@@ -29,9 +29,10 @@ class Register(PWInput):
                 # enter password a second time
                 if self._confirm_password():
 
-                    # generate data, encrypt and save
-                    data = [Crypto.generate_rnd_salt(), self.username, self.password]
-                    if Save.save_password(self.path, self.cypher, data):
+                    # generate password data for saving in first line in the savefile / database
+                    pwd_data = [Crypto.generate_rnd_salt(), self.username, self.password]
+                    # encrypt and save
+                    if Save.save_password(self.path, self.cypher, pwd_data):
                         print("-" * 50)
                         print("Masterpasswort erfolgreich gespeichert.")
                         print("Merke dir das Passwort oder bewahre es sicher auf.")
