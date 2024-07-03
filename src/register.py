@@ -30,7 +30,7 @@ class Register(PWInput):
                 if self._confirm_password():
 
                     # generate data, encrypt and save
-                    data = [self.username, self.password]
+                    data = [Crypto.generate_rnd_salt(), self.username, self.password]
                     if Save.save_password(self.path, self.cypher, data):
                         print("-" * 50)
                         print("Masterpasswort erfolgreich gespeichert.")
