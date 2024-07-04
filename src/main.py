@@ -90,7 +90,7 @@ class Main:
                             continue
 
                 elif eingabe[0] == "edit":
-                    acc_name = input("Gib den Account Namen ein: ")
+                    acc_name = input("Welchen Account möchtest du bearbeiten:\n")
                     db_manager.print_data(acc_name, short=False)
                     field = input("Feld, z.B. password: ").lower()
                     changes = input(f"Neue Eingabe für den Account {acc_name} in {field}: ")
