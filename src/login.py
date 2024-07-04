@@ -16,8 +16,8 @@ class Login(PWInput):
 
         Args:
             start_text (str, optional): The text to display at the beginning of the login process. Defaults to "LOGIN".
-            max_login_fails (int, optional): The maximum number of login failures allowed before exiting the application.
-            Defaults to 3.
+            max_login_fails (int, optional): The maximum number of login failures
+            allowed before exiting the application. Defaults to 3.
 
         Returns:
             bool: True if login is successful, False otherwise.
@@ -30,19 +30,18 @@ class Login(PWInput):
             # get userinput for username and password
             if super().run(start_text):
                 
-                # get salt and hashed masterpassword from file
+                # get salt and hashed master password from file
                 hashed_data = Load.load_password(self.path)
                 salt = hashed_data[0]
                 hashed_pw = hashed_data[1]
 
                 # generate data list from userinput and hash it
                 data = [self.username, self.password]
-                # generate hash - have to add the new line, because the masterpassword is save so too
+                # generate hash - have to add the new line, because the master password is save so too
                 new_hashed_data = self.cypher.encrypt_password(data, new_salt=salt) + "\n"
-                
 
                 # compare hashes
-                if new_hashed_data == hashed_data:
+                if new_hashed_data == hashed_pw:
                     print("-" * 50)
                     print("Login erfolgreich.")
                     print("-" * 50)
@@ -67,5 +66,3 @@ class Login(PWInput):
 
         seed = self.password + self.username
         return Crypto.generate_fenet_key(seed)
-
-

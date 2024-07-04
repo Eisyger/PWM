@@ -1,4 +1,3 @@
-from crypto import Crypto
 from cryptography.fernet import Fernet
 import os
 
@@ -14,7 +13,7 @@ class Load:
             
 
         Returns:
-            list: [0] => The salt witch was used. [1] => The hashed masterpassword.             
+            list: [0] => The salt witch was used. [1] => The hashed master password.
         """
 
         if os.path.exists(path):

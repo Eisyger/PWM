@@ -46,7 +46,7 @@ class Main:
                         print("p                    \t Gib alle Accounts in Kurzform aus.")
                         print("pl                   \t Gib alle Accounts in Langform aus.")
                         print("p <ACCOUNT_NAME>     \t Gib die Account Daten aus.")
-                        print("get <ACCOUNT_NAME>   \t Fügt das Passwort in den Zwischespeicher ein.")
+                        print("get <ACCOUNT_NAME>   \t Fügt das Passwort in den Zwischenspeicher ein.")
                         print("add                  \t Erstelle neuen Account.")
                         print("edit                 \t Editiere einen Account.")
                         print("remove <ACCOUNT_NAME>\t Löschte eine Account.")
@@ -128,9 +128,9 @@ if __name__ == "__main__":
     parser.add_argument('--path', type=str, default="", help="Path to save files")
     args = parser.parse_args()
     if os.path.exists(args.path) and os.path.isdir(args.path):
-        save_path = args.path
+        file_path = args.path
     else:
-        save_path = ""
+        file_path = ""
 
-    main = Main(save_path)
+    main = Main(file_path)
     main.run()
