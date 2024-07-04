@@ -31,17 +31,7 @@ class Main:
             while True:
                 eingabe = input("_> ").split(' ')
 
-                if eingabe[0] == "exit":
-                    print("Beende den Passwort Manager.")
-                    abfrage = input("Änderungen speichern? Y/N: ")
-                    if abfrage.lower() == "y":
-                        db_manager.save()
-                        print("Änderungen gespeichert.")
-                    else:
-                        print("Änderungen wurden nicht gespeichert.")
-                    break
-
-                elif eingabe[0] == "help":
+                if eingabe[0] == "help":
                     if len(eingabe) == 1:
                         print("p                    \t Gib alle Accounts in Kurzform aus.")
                         print("pl                   \t Gib alle Accounts in Langform aus.")
@@ -49,11 +39,10 @@ class Main:
                         print("get <ACCOUNT_NAME>   \t Fügt das Passwort in den Zwischenspeicher ein.")
                         print("add                  \t Erstelle neuen Account.")
                         print("edit                 \t Editiere einen Account.")
-                        print("remove <ACCOUNT_NAME>\t Löschte eine Account.")
-                        print("clear                \t Bereinige die Console.")
-                        print("save                 \t Änderungen Speichern.")
+                        print("remove <ACCOUNT_NAME>\t Löscht eine Account.")
+                        print("clear                \t Bereinigt die Console.")
                         print("exit                 \t Beenden.")
-                        print("change pwm           \t Ändere deine Logindaten für den PWM.")
+                        print("change pw           \t Ändere deine Logindaten für den PWM.")
                         print("Das Passwort wird nicht über die Kommandozeile ausgegeben."
                               "Verwende den Befehl 'get <ACCOUNT_NAME> um das Passwort des gesuchten "
                               "Accounts in die Zwischenablage zu speichern.")
@@ -80,26 +69,24 @@ class Main:
                 elif eingabe[0] == "remove":
                     if len(eingabe) == 2:
                         db_manager.remove(eingabe[1])
+                        db_manager.save(path=self.path_database, auth_key=auth_key)
                         continue
 
                 elif eingabe[0] == "add":
                     if len(eingabe) == 1:
                         db_manager.add()
-                        continue
-
-                elif eingabe[0] == "save":
-                    if len(eingabe) == 1:
-                        db_manager.save()
+                        db_manager.save(path=self.path_database, auth_key=auth_key)
                         continue
 
                 elif eingabe[0] == "change":
                     if len(eingabe) == 2:
-                        if eingabe[1] == "pwm":
+                        if eingabe[1] == "pw":
                             new_register = Register(self.path_database, self.cypher)
                             new_register.run("ÄNDERUNG DER LOGINDATEN FÜR DEN PWM")
                             new_login = Login(self.path_database, self.cypher)
                             new_login.run("Log dich einmal mit deinen neuen Daten ein.")
-                            db_manager.save(path=self.path_database, auth_key=new_login.get_key())
+                            auth_key = new_login.get_key()
+                            db_manager.save(path=self.path_database, auth_key=auth_key)
                             continue
 
                 elif eingabe[0] == "edit":
@@ -109,6 +96,7 @@ class Main:
                     changes = input(f"Neue Eingabe für den Account {acc_name} in {field}: ")
                     if acc_name and field and changes:
                         db_manager.edit(acc_name, field, changes)
+                        db_manager.save(path=self.path_database, auth_key=auth_key)
                         continue
                     else:
                         print("Ungültige Eingabe.")
@@ -118,7 +106,13 @@ class Main:
                     if len(eingabe) == 1:
                         os.system('cls' if os.name == 'nt' else 'clear')
                         continue
-                print("Eingabe ungültig, schreibe 'help' für Hilfe.")
+
+                elif eingabe[0] == "exit":
+                    print("Beende den Passwort Manager.")
+                    db_manager.save(path=self.path_database, auth_key=auth_key)
+                    break
+
+                print("Schreibe 'help' für Hilfe...")
         else:
             print("Falsches Passwort. Beende Passwort Manager.")
 

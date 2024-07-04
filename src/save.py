@@ -1,6 +1,5 @@
 import json
 from cryptography.fernet import Fernet
-from load import Load
 from crypto import Crypto
 import os
 
@@ -15,7 +14,7 @@ class Save:
         Args:
             path (str): The path to the file.
             cipher (Crypto): The encryption object.
-            data (list): The list of strings to be encrypted and hashed, e. g. [username, password].
+            data (list): The list of strings to be encrypted and hashed, e.g. [username, password].
 
         Returns:
             bool: True if the password is successfully saved, raises an Error otherwise.
@@ -23,21 +22,20 @@ class Save:
         try:
             if os.path.exists(path):
                 # load existing file
-                with open(path, 'r') as old_data:
-                    lines = old_data.readlines()
+                with open(path, 'r') as file:
+                    lines = file.readlines()
 
-                # replace the first line with salt in raw form and new password data
-                lines[0] = cipher.salt + ":" + cipher.encrypt_password(pw_data_to_hash) + "\n"
+                # replace the first line with salt in raw form and separated with a colon the new password data
+                lines[0] = cipher.salt + ":" + cipher.encrypt_password(data) + "\n"
 
                 # write lines back in file
-                with open(path, 'w') as new_data:
-                    new_data.writelines(lines)
-            else:
-                # create new file and save password data
                 with open(path, 'w') as file:
-
+                    file.writelines(lines)
+            else:
+                # when the file does not exist create new file and save password data
+                with open(path, 'w') as file:
                     # use cypher to encrypt the passwort and write it to file
-                    file.write(cipher.salt + ":" + cipher.encrypt_password(pw_data_to_hash) + "\n")
+                    file.write(cipher.salt + ":" + cipher.encrypt_password(data) + "\n")
 
         except Exception as e:
             print("Fehler beim Schreiben der Datei:", path)
@@ -55,7 +53,7 @@ class Save:
             auth (bytes): Authentication data for encryption. Defaults to bytes.
         """
 
-        # creat a json from the data
+        # create a json from the data
         json_data = json.dumps(account_data, indent=4).encode('utf-8')
 
         if auth is not None:
@@ -64,7 +62,7 @@ class Save:
 
         try:
             if os.path.exists(path):
-                # first line with the masterpassword data is untouched
+                # first line with the master password data is untouched
                 with open(path, 'r') as old_file:
                     pw_data = old_file.readline()
                 
@@ -95,5 +93,3 @@ class Save:
 
         cipher = Fernet(auth)
         return cipher.encrypt(data)
-
-

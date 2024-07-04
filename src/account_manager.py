@@ -31,11 +31,9 @@ class AccountManager:
 
     def print_data(self, name="", all=False, short=True):
         i = 0
-        print("Auflistung aller Accounts:")
         print("-" * 50)
 
-        for acc in self._accounts:
-            i += 1
+        for i, acc in enumerate(self._accounts):
             acc.update()
             if acc.account_name == name and not all:
                 print(f"{i}:\n{acc}")
