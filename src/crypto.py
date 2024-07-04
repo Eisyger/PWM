@@ -1,6 +1,7 @@
 import hmac
 import hashlib
 import base64
+import os
 
 
 class Crypto:
@@ -8,13 +9,14 @@ class Crypto:
         self.salt = self.__generate_rnd_salt()
         self.pepper = pepper
 
-    def encrypt_password(self, data: list, separator: str = " ", new_salt: str  = "") -> str:
+    def encrypt_password(self, data: list, separator: str = " ", new_salt: str = "") -> str:
         """
         Encrypt and hash the password data.
 
         Args:
-            data (list): The list of strings to be encrypted and hashed, e. g. [username, password].
+            data (list): The list of strings to be encrypted and hashed, e.g. [username, password].
             separator (str, optional): The separator used to join the data strings. Defaults to " ".
+            new_salt: Encrypt the password with the given salt.
 
         Returns:
             str: The hashed data.
@@ -72,7 +74,7 @@ class Crypto:
             raise SystemExit("Programm wird beendet aufgrund eines Fehlers.")
 
     @staticmethod
-    def generate_fenet_key(seed: str) -> bytes:
+    def generate_fernet_key(seed: str) -> bytes:
         """
         Generate a Fernet key from a seed.
 
@@ -88,6 +90,6 @@ class Crypto:
         return base64_key
 
     @staticmethod
-    def __generate_rnd_salt(salt_lenght = 16) -> str:
-        salt = os.urandom(length)
+    def __generate_rnd_salt(salt_length=16) -> str:
+        salt = os.urandom(salt_length)
         return base64.b64encode(salt).decode('utf-8')

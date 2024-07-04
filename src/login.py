@@ -65,4 +65,4 @@ class Login(PWInput):
         """Returns a base64 key for encoding the database."""
 
         seed = self.password + self.username
-        return Crypto.generate_fenet_key(seed)
+        return Crypto.generate_fernet_key(seed)
