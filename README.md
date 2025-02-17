@@ -1,12 +1,8 @@
-# Terminal Password Manager
+# Terminal Passwort-Manager
+Dieses Projekt ist ein terminal-basierter Passwort-Manager.
 
-This project is a terminal-based Password Manager.
-
-## Features
-
-- Register an MWP-Account with a username and master password.
-- Add/Edit/Remove new accounts - type `help` for further information.
-- Copy the password from an account on the clipboard
-- Accountdata will be saved, encrypted and hashed in a file.
-
-
+## Funktionen
+- Registriere ein MWP-Konto mit einem Benutzernamen und einem Master-Passwort.
+- Füge neue Konten hinzu, bearbeite oder entferne sie – tippe help für weitere Informationen.
+- Kopiere das Passwort eines Kontos in die Zwischenablage.
+- Kontodaten werden verschlüsselt und gehasht in einer Datei gespeichert.
